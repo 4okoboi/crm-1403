@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="{{url_for('main')}}"><button type="button" class="btn btn-primary" style="padding-top: 10px; margin-left: auto; margin-right: auto; padding-bottom: 10px">Главная страница</button></a>
+<h1>Изменить</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.id.label }}<br>
+        {{ form.id(class="form-control", value=id_url, readonly=true) }}<br>
+        {% for error in form.id.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.url.label }}<br>
+        {{ form.url(class="form-control", value=url_e) }}<br>
+        {% for error in form.url.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.status.label }}<br>
+        {{ form.status(class="form-control") }}<br>
+        {% for error in form.status.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <p>{{ form.delete(type="submit", class="btn btn-danger") }}</p>
+    <div>{{ error }}</div>
+</form>
+
+{% endblock %}

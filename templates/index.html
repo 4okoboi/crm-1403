@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{url_for('create')}}"><button type="button" class="btn btn-primary" style="padding-top: 10px; margin-left: auto; margin-right: auto; padding-bottom: 10px">Создать</button></a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">url</th>
+      <th scope="col">status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for j in range(lenght) %}
+    <tr>
+      <th scope="row">{{ j + 1 }}</th>
+      <td><a href="{{url_for('editor', id_url=data[keys[j]]['id'])}}">{{ data[keys[j]]['id'] }}</a></td>
+      <td>{{ data[keys[j]]['url'] }}</td>
+      <td>{{ data[keys[j]]['status'] }}</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
