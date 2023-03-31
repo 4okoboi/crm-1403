@@ -12,3 +12,5 @@ firebaseConfig = {'apiKey': "AIzaSyBbSIbGpsZnDSOTdLuYIDClPmdxb4vcix4",
 firebase = pyrebase.initialize_app(firebaseConfig)
 database = firebase.database()
 
+# print(database.child('countries').push('US'))
+
