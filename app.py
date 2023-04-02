@@ -75,7 +75,7 @@ def editor(id_url):
 @app.route('/countries', methods=['GET', 'POST'])
 def countries():
     if request.method == 'POST':
-        c_code = request.form.get('c_code')
+        c_code = request.form.get('c_code').strip()
         try:
             data = dict(database.child('countries').get().val()).values()
         except Exception as ex:
@@ -98,7 +98,7 @@ def countries():
 @app.route('/ips', methods=['GET', 'POST'])
 def ips():
     if request.method == 'POST':
-        ip = request.form.get('ip')
+        ip = request.form.get('ip').strip()
         try:
             data = dict(database.child('ips').get().val()).values()
         except Exception as ex:
@@ -121,7 +121,7 @@ def ips():
 @app.route('/timezones', methods=['GET', 'POST'])
 def timezones():
     if request.method == 'POST':
-        timezone = request.form.get('timezone')
+        timezone = request.form.get('timezone').strip()
         try:
             data = dict(database.child('timezones').get().val()).values()
         except Exception as ex:
@@ -141,6 +141,29 @@ def timezones():
         return render_template('timezones.html', data=data, lenght=0, keys=[])
 
 
+@app.route('/isps', methods=['GET', 'POST'])
+def isps():
+    if request.method == 'POST':
+        isp = request.form.get('isp').strip()
+        try:
+            data = dict(database.child('isps').get().val()).values()
+        except Exception as ex:
+            data = {}
+        if data:
+            if isp == "" or isp in data:
+                pass
+            else:
+                database.child('isps').push(isp)
+        else:
+            database.child('isps').push(isp)
+    try:
+        data = dict(database.child('isps').get().val())
+        return render_template('isps.html', data=data, lenght=len(data), keys=list(data.keys()))
+    except Exception as ex:
+        data = {}
+        return render_template('isps.html', data=data, lenght=0, keys=[])
+
+
 @app.route('/del_country/<id_country>', methods=['GET', 'POST'])
 def del_country(id_country):
     database.child('countries').child(id_country).remove()
@@ -157,6 +180,12 @@ def del_timezone(id_timezone):
 def del_ip(id_ip):
     database.child('ips').child(id_ip).remove()
     return redirect('/ips')
+
+
+@app.route('/del_isp/<id_isp>', methods=['GET', 'POST'])
+def del_isp(id_isp):
+    database.child('isps').child(id_isp).remove()
+    return redirect('/isps')
 
 
 if __name__ == "__main__":

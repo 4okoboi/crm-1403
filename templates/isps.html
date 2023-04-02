@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post">
+<div class="input-group mb-3" style="padding-top: 10px">
+
+    <input type="text" class="form-control" placeholder="ISP" aria-label="ISP" aria-describedby="basic-addon2" name="isp">
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-primary">+</button>
+    </div>
+
+</div>
+</form>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ISP</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for j in range(lenght) %}
+    <tr>
+      <th scope="row">{{ j + 1 }}</th>
+      <td>{{ data[keys[j]] }}</td>
+      <td><a href="/del_isp/{{keys[j]}}"><button class="btn btn-danger">Delete</button></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
