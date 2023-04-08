@@ -164,6 +164,26 @@ def isps():
         return render_template('isps.html', data=data, lenght=0, keys=[])
 
 
+@app.route('/bots', methods=['GET', 'POST'])
+def bots():
+    if request.method == "POST":
+        ip_ranges = request.form.get('ip_ranges')
+        try:
+            database.child('ip_ranges').set(ip_ranges)
+        except Exception as ex:
+            pass
+    return render_template('bots.html')
+
+@app.route('/useragents', methods=['GET', 'POST'])
+def useragents():
+    if request.method == "POST":
+        agents = request.form.get('useragents')
+        try:
+            database.child('useragents').set(agents)
+        except Exception as ex:
+            pass
+    return render_template('useragents.html')
+
 @app.route('/del_country/<id_country>', methods=['GET', 'POST'])
 def del_country(id_country):
     database.child('countries').child(id_country).remove()
